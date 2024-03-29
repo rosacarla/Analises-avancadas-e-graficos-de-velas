@@ -22,7 +22,7 @@ from plotly.subplots import make_subplots
 ---  
 
 ### 📊 CRIAÇÃO DE GRÁFICOS PARA DEMONSTRAR VARIAÇÃO DO PREÇO DE AÇÕES NO FECHAMENTO
-<img src=''>
+<img src='https://github.com/rosacarla/Analises-avancadas-e-graficos-de-velas/blob/main/images/aula04-graficos.png'>
 
 - gráfico de linha com biblioteca Pandas da variação da ação PETR4 por data
 ```python
@@ -33,10 +33,10 @@ plt.title('VARIAÇÃO DO PREÇO POR DATA', fontsize=16)
 plt.legend(['Fechamento'])
 ```
 - gráfico de candles ou velas com Matplotlib da variação da ação PETR4 em período de 60 dias
-<img src=''>
+<img src='https://github.com/rosacarla/Analises-avancadas-e-graficos-de-velas/blob/main/images/aula04-candle-matplotlib.png'>
 
 - gráfico de candles interativo com subplots e função Candlesticks da variação e valores transacionados de PETR4 em 60 dias
-<img src=''>
+<img src='https://github.com/rosacarla/Analises-avancadas-e-graficos-de-velas/blob/main/images/auka04-subplots-candlestick.png'>
 
 - gráfico de candles interativo refeito com a `API mágica`
   
@@ -48,7 +48,7 @@ mpf.plot(dados.head(60), type='candle', figsize = (16,8), volume=True, mav=(7,14
 
 ### 🧠 DESAFIOS DA AULA 4  
 
-<img src=''>  
+<img src='https://github.com/rosacarla/Analises-avancadas-e-graficos-de-velas/blob/main/images/aula04-desafio.png'>  
 
 - Pesquisar o que é uma tupla em Python;
 - Buscar a ação da Apple e recriar o gráfico de Candlestick usando a biblioteca MPLFinance.
@@ -56,10 +56,10 @@ mpf.plot(dados.head(60), type='candle', figsize = (16,8), volume=True, mav=(7,14
 ☑️ RESOLUÇÃO DOS DESAFIOS  
 
 - Desafio 1 
-<img src=''>
+<img src='https://github.com/rosacarla/Analises-avancadas-e-graficos-de-velas/blob/main/images/aula04-desafio1.png'>
 
 - Desafio 2
-<img src=''>
+<img src='https://github.com/rosacarla/Analises-avancadas-e-graficos-de-velas/blob/main/images/aula04-candlestick-mike.png'>
 
 Ver resolução completa no [notebook do Google Colab](https://colab.research.google.com/github/rosacarla/Analises-avancadas-e-graficos-de-velas/blob/main/Imersao_Python_Aula04.ipynb).  
 
