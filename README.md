@@ -61,7 +61,7 @@ mpf.plot(dados.head(60), type='candle', figsize = (16,8), volume=True, mav=(7,14
 - Desafio 2
 <img src=''>
 
-Ver resolução completa no [notebook do Google Colab]().  
+Ver resolução completa no [notebook do Google Colab](https://colab.research.google.com/github/rosacarla/Analises-avancadas-e-graficos-de-velas/blob/main/Imersao_Python_Aula04.ipynb).  
 
 ---  
 
