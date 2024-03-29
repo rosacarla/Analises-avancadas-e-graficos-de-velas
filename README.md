@@ -1,140 +1,67 @@
-#### 📈 MANIPULAÇÃO DE DADOS E CRIAÇÃO DE GRÁFICOS COM BIBLIOTECAS PYTHON
+#### 📈 ANÁLISES AVANÇADAS E GRÁFICOS DE VELAS COM API YAHOO FINANCE
 
-Projeto desenvolvido para manipulação de dados de uma base da Bolsa de Valores e criação de gráficos com bibliotecas Pandas e Plotly Express do Python no Google Colab.  
+Projeto desenvolvido para realizar análises mais avançadas de dados de ações, obtidos da API Yahoo Finance, e construir gráficos com Plotly e MPLFinance no Google Colab.  
 É uma proposta de trabalho feita na <i>Imersão Python: Do Excel à Análise de Dados</i>, promovida pela Alura.    
 
-<img src='https://github.com/rosacarla/Manipulacao-de-dados-e-graficos-com-bibliotecas-python/blob/main/images/aula03.png'>  
+<img src='https://i.postimg.cc/9QDfxRC5/aula04-cabecalho.png'>  
 
 ---
 
-#### 💬 PROMPTS USADOS NO CHATGPT PARA CRIAR PLANILHAS NO GOOGLE COLAB  
+#### 💬 BIBLIOTECAS NECESSÁRIAS  
 
-- prompt 1
-<img src='https://github.com/rosacarla/Manipulacao-de-dados-e-graficos-com-bibliotecas-python/blob/main/images/aula03-chatgpt.png'>
-
-- código para inclusão da coluna `resultado`
-  
 ```python
-# Aplica a lógica da fórmula (da planilha Principal) utilizando uma expressão lambda e a função apply
-# Expressao lambda é usada para fazer operações linha a linha
-# Função apply é chamada para aplicar outra função
-df_principal['resultado'] = df_principal['variacao_rs'].apply(lambda x: 'Subiu' if x > 0 else ('Desceu' if x < 0 else 'Estável'))
-df_principal
-```
-
-- prompt 2
-<img src='https://github.com/rosacarla/Manipulacao-de-dados-e-graficos-com-bibliotecas-python/blob/main/images/aula03-chatgpt2.png'>
-
-- código para inclusão da coluna `cat_idade`
-  
-```python
-# Cria a coluna 'cat_idade' (= planilha Principal) no dataframe 
-# Aplica a lógica da fórmula para criar a coluna utilizando expressão lambda e função apply
-df_principal['cat_idade'] = df_principal['idade'].apply(lambda x: 'Mais de 100' if x > 100 else ('Menos de 50' if x < 50 else 'Entre 50 e 100'))
-df_principal
+import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+import mplfinance as mpf
+import yfinance as yf  # API Yahoo Finance tem dados de ações
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 ```
 
 ---  
 
-### 💹 ANÁLISE EXPLORATÓRIA DE DADOS 
-<img src='https://github.com/rosacarla/Manipulacao-de-dados-e-graficos-com-bibliotecas-python/blob/main/images/aula03-analises.png'>
+### 📊 CRIAÇÃO DE GRÁFICOS PARA DEMONSTRAR VARIAÇÃO DO PREÇO DE AÇÕES NO FECHAMENTO
+<img src=''>
 
-- prompt 3
-<img src='https://github.com/rosacarla/Manipulacao-de-dados-e-graficos-com-bibliotecas-python/blob/main/images/aula03-chatgpt3.png'>
+- gráfico de linha com biblioteca Pandas da variação da ação PETR4 por data
+```python
+# Plota gráfico com dados da coluna Fechamento usando biblioteca Pandas
+# Plotar significa desenhar, ampliar, mostrar uma figura
+dados['Fechamento'].plot(figsize=(10,6))
+plt.title('VARIAÇÃO DO PREÇO POR DATA', fontsize=16)
+plt.legend(['Fechamento'])
+```
+- gráfico de candles ou velas com Matplotlib da variação da ação PETR4 em período de 60 dias
+<img src=''>
 
-- código para criação de planilha com métricas da coluna `variacao_rs`
+- gráfico de candles interativo com subplots e função Candlesticks da variação e valores transacionados de PETR4 em 60 dias
+<img src=''>
+
+- gráfico de candles interativo refeito com a `API mágica`
   
 ```python
-# Análise de dados com métricas
-# Calcula o maior valor
-maior = df_principal['variacao_rs'].max()
-
-# Calcula o menor valor
-menor = df_principal['variacao_rs'].min()
-
-# Calcula a média
-media = df_principal['variacao_rs'].mean()
-
-# Calcula a média de quem subiu
-media_subiu = df_principal[df_principal['resultado'] == 'Subiu']['variacao_rs'].mean()
-
-# Calcula a média de quem desceu
-media_desceu = df_principal[df_principal['resultado'] == 'Desceu']['variacao_rs'].mean()
-(...)
+# Cria grafico de candlestick para ação PETR4 com API mágica!
+mpf.plot(dados.head(60), type='candle', figsize = (16,8), volume=True, mav=(7,14), style='yahoo')
 ```
-
 ---  
 
-### 📊 CRIAÇÃO DE GRÁFICOS COM PLOTLY EXPRESS
-<img src='https://github.com/rosacarla/Manipulacao-de-dados-e-graficos-com-bibliotecas-python/blob/main/images/aula03-graficos.png'>
+### 🧠 DESAFIOS DA AULA 4  
 
-- código para criar gráfico de barras da Variação em R$ por Resultado
+<img src=''>  
 
-```python
-# Gera gráfico de barras com biblioteca Plotly Express
-fig = px.bar(df_analise_saldo, x='resultado', y='variacao_rs', text='variacao_rs', title='Variação em Reais por Resultado')
-# Exibe o gráfico na tela
-fig.show()  
-```
-
----  
-
-### 🧠 DESAFIOS DA AULA 3  
-
-- Pesquise com a documentação da biblioteca Plotly ou GPT como mudar a formatação dos números do gráfico de barras;
-- Fazer o gráfico de pizza no df_análise_segmentos com a mesma biblioteca Potly;
-- Fazer o `groupby` da categoria de idades e gerar o gráfico de barras.
+- Pesquisar o que é uma tupla em Python;
+- Buscar a ação da Apple e recriar o gráfico de Candlestick usando a biblioteca MPLFinance.
 
 ☑️ RESOLUÇÃO DOS DESAFIOS  
-- prompt 4
-<img src='https://github.com/rosacarla/Manipulacao-de-dados-e-graficos-com-bibliotecas-python/blob/main/images/aula03-chatgpt4.png'>
 
-- código para formatação dos números nas barras do gráfico das categorias por idade
-  
-```python
-# Gera gráfico de barras com formatação dos números (separador de milhar no texto das barras)
-fig = px.bar(df_analise_saldo, x='resultado', y='variacao_rs', text=df_analise_saldo['variacao_rs'].apply(lambda x: '{:,.2f}'.format(x)), title='<b>VARIAÇÃO EM REAIS POR RESULTADO</b>')
+- Desafio 1 
+<img src=''>
 
-# Exibe o gráfico na tela
-fig.show()
-```
+- Desafio 2
+<img src=''>
 
-- prompt 5
-<img src='https://github.com/rosacarla/Manipulacao-de-dados-e-graficos-com-bibliotecas-python/blob/main/images/aula03-chatgpt5.png'>
-
-- código para criar gráfico em formato de pizza com Variação em R$ por Segmento de quem subiu
-
-```python
-# Cria o gráfico de pizza do df_analise_segmento
-# Filtra os dados para remover os segmentos 'Petróleo', 'Mineração' e 'Banco'
-df_analise_segmento_filtrado = df_analise_segmento[~df_analise_segmento['segmento'].isin(['Petróleo', 'Mineração', 'Banco'])]
-
-# Ajusta o tamanho da pizza
-fig = px.pie(df_analise_segmento_filtrado, values='variacao_rs', names='segmento', title='<b>VARIAÇÃO EM R$ POR SEGMENTO COM ALTA NO RESULTADO</b>', width=1024, height=1024)
-
-# Exibe o gráfico
-fig.show()
-```
-
-- prompt 6
-<img src='https://github.com/rosacarla/Manipulacao-de-dados-e-graficos-com-bibliotecas-python/blob/main/images/aula03-chatgpt6.png'>
-
-- código para criar gráfico de barras da Variação em R$ a partir do agrupamento das categorias de idade das empresas
-
-```python
-# Cria gráfico de barras com dados de df_analise_cat_idade usando Plotly Express
-fig = px.bar(df_analise_cat_idade, x='cat_idade', y='variacao_rs', text='variacao_rs', title='<b>VARIAÇÃO EM R$ versus IDADE</b>')
-
-# Formata números em textos das barras para terem separadores de milhar e 3 casas decimais após a vírgula
-fig.update_traces(texttemplate='%{text:,.2f}')
-
-# Atualiza os nomes dos eixos
-fig.update_xaxes(title_text='Idade')
-fig.update_yaxes(title_text='Variação em R$')
-
-# Exibe o gráfico
-fig.show()
-```
+Ver resolução completa no [notebook do Google Colab]().  
 
 ---  
 
@@ -152,10 +79,13 @@ Contato: rosa.carla@pucpr.edu.br
 
 #### 🔗 LINKS ÚTEIS  
 
-[Conheça as bibliotecas do Python de Data Visualization](https://www.alura.com.br/artigos/data-visualization-conhecendo-bibliotecas-python?_gl=1*m01qr6*_ga*MTkyMTEwNTQ2Ni4xNzA5NTk0NTU0*_ga_1EPWSW3PCS*MTcxMTU3MDQ0Ny4yOS4xLjE3MTE1NzA1MTUuMC4wLjA.*_fplc*b1ZHNnVRMXRZRkJhY0NFRTQlMkZiT0U3Y3o2bkVHOWcwOXphbHJjdktaY1dSOVgzM3FOc2xFam16SCUyRjlMRVpwNyUyQjhOclRIZTBUMiUyQkNONzhnWlU0VjlwTHI2WE5HUTloJTJGMXRwTDI5WU44NWN3UnpGcDZRSmRsME54WWtibEtHQSUzRCUzRA..)  
-[O que é DataFrame](https://www.alura.com.br/artigos/pandas-o-que-e-para-que-serve-como-instalar?_gl=1*10lewlx*_ga*MTkyMTEwNTQ2Ni4xNzA5NTk0NTU0*_ga_1EPWSW3PCS*MTcxMTU3MDQ0Ny4yOS4xLjE3MTE1NzExMzAuMC4wLjA.*_fplc*b1ZHNnVRMXRZRkJhY0NFRTQlMkZiT0U3Y3o2bkVHOWcwOXphbHJjdktaY1dSOVgzM3FOc2xFam16SCUyRjlMRVpwNyUyQjhOclRIZTBUMiUyQkNONzhnWlU0VjlwTHI2WE5HUTloJTJGMXRwTDI5WU44NWN3UnpGcDZRSmRsME54WWtibEtHQSUzRCUzRA..#:~:text=DataFrame,Series%20sob%20um%20mesmo%20index.)  
-[ChatGPT e a análise de dados avançada](https://www.youtube.com/watch?v=u-JoDQ58Dv0)  
-[Documentação do Pandas GroupBy](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.groupby.html)  
-[Documentação da biblioteca Plotly](https://plotly.com/python/bar-charts/)  
+[Biblioteca Matplotlib: Visualization with Python](https://matplotlib.org/)  
+[Gráficos Matplotlib no Python](https://www.alura.com.br/artigos/criando-graficos-no-python-com-a-matplotlib?_gl=1*1dc3t7n*_ga*MTkyMTEwNTQ2Ni4xNzA5NTk0NTU0*_ga_1EPWSW3PCS*MTcxMTY4Mjc0MC4zNC4xLjE3MTE2ODI3NDkuMC4wLjA.*_fplc*aklKWnYxSTAybVRJVGltNVZieW1WYXdZbkp0elglMkZyb0dYdnFQcll2WGpreXMwS1VsQlBESEpXcGdmcm05ZWZXWTNpUXFiZFptR1psY2taRVVQVTV3cWtVc0R4dEFhN1JsSmZOOEtMUzlYbjNvRGs0ZmY2bGRnSmpvelhmdXclM0QlM0Q.)  
+[O que é API](https://www.alura.com.br/artigos/api?_gl=1*rcnrb*_ga*MTkyMTEwNTQ2Ni4xNzA5NTk0NTU0*_ga_1EPWSW3PCS*MTcxMTY4NTA4OC4zNS4wLjE3MTE2ODUxMzEuMC4wLjA.*_fplc*aklKWnYxSTAybVRJVGltNVZieW1WYXdZbkp0elglMkZyb0dYdnFQcll2WGpreXMwS1VsQlBESEpXcGdmcm05ZWZXWTNpUXFiZFptR1psY2taRVVQVTV3cWtVc0R4dEFhN1JsSmZOOEtMUzlYbjNvRGs0ZmY2bGRnSmpvelhmdXclM0QlM0Q.)  
+[Conheça o Yahoo Finanças](https://br.financas.yahoo.com/quote/%5EBVSP?p=%5EBVSP)  
+[Conheça as bibliotecas de Data Visualization do Python](https://www.alura.com.br/artigos/data-visualization-conhecendo-bibliotecas-python?_gl=1*tlxvhm*_ga*MTkyMTEwNTQ2Ni4xNzA5NTk0NTU0*_ga_1EPWSW3PCS*MTcxMTY4NTA4OC4zNS4xLjE3MTE2ODUxNzUuMC4wLjA.*_fplc*aklKWnYxSTAybVRJVGltNVZieW1WYXdZbkp0elglMkZyb0dYdnFQcll2WGpreXMwS1VsQlBESEpXcGdmcm05ZWZXWTNpUXFiZFptR1psY2taRVVQVTV3cWtVc0R4dEFhN1JsSmZOOEtMUzlYbjNvRGs0ZmY2bGRnSmpvelhmdXclM0QlM0Q.)  
+[Biblioteca MPLFinance](https://github.com/matplotlib/mplfinance)  
+[Traçar gráfico de velas usando o módulo MPLFinance em Python](https://acervolima.com/tracar-grafico-de-velas-usando-o-modulo-mplfinance-em-python/)  
+[Aprenda a visualizar dados financeiros com Python e MPLFinance](https://awari.com.br/aprenda-a-visualizar-dados-financeiros-com-python-e-mplfinance/#:~:text=A%20biblioteca%20mplfinance%20possui%20uma,Personaliza%C3%A7%C3%A3o%20dos%20gr%C3%A1ficos)
 
 ---
